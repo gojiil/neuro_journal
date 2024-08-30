@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+<div class="side-nav">
+    <div class="item active">
+        <i class='bx bx-message-square-dots'></i>
+        <a href="/notes">Заметки</a>
+    </div>
+    <div class="item">
+        <i class='bx bx-search-alt' ></i>
+        <a href="/knowledges">База знаний</a>
+    </div>
+    <div class="item">
+        <i class='bx bx-briefcase'></i>
+        <a href="/projects">Проекты</a>
+    </div>
+    <div class="item">
+        <i class='bx bx-cog'></i>
+        <a href="/settings">Настройки</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    
+    <div class="header">
+        <h4><a href="/note">Создать новую заметку</a></h4>
+        <p>Здесь можно что-нибудь добавить</p>
+    </div>
+
+    <div class="notes-cards">
+        {% for note in notes %}
+        <div class="card">
+            <div class="card-tags">
+                {% for tag in tags %}
+                    {% if tag.entryid == note.pk %}
+                        <a href="#">{{ tag.tagname }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="card-desc">
+                <a href="/note_{{note.id}}">{{note.text}}</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

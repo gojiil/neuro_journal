@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content">
+
+    <div class="header">
+        <h4>Добавление чего-либо</h4>
+        <p>Здесь можно что-нибудь добавить</p>
+    </div>
+
+    <div class="note">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Send">
+        </form>
+    </div>
+
+</div>
+{% endblock %}

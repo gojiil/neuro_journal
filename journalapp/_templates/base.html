@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="gojiil">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'assets/logo_mini.png' %}">
+    <title>{% block title %}НЕЙРОДНЕВНИК{% endblock %}</title>
+</head>
+<body>
+    
+    {% if user.is_authenticated %}
+    <div class="sidebar">
+
+        <a href="#"><img src="{% static 'assets/logo.png' %}"></a>
+        {% block nav %}
+        <div class="side-nav">
+            <div class="item">
+                <i class='bx bx-message-square-dots'></i>
+                <a href="/notes">Заметки</a>
+            </div>
+            <div class="item">
+                <i class='bx bx-search-alt' ></i>
+                <a href="/knowledges">База знаний</a>
+            </div>
+            <div class="item">
+                <i class='bx bx-briefcase'></i>
+                <a href="/projects">Проекты</a>
+            </div>
+            <div class="item">
+                <i class='bx bx-cog'></i>
+                <a href="/settings">Настройки</a>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+
+    <div class="container">
+        <div class="nav">
+            <button id="menuToggle"><i class='bx bx-menu'></i></button>
+            <div class="search">
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Search">
+            </div>
+            <button>Search</button>
+            <div class="user-info">
+            <img src="{% static 'assets/1.jpg' %}">
+            <div>
+                <a href="#">{{ user.first_name }} {{ user.last_name }}<i class='bx bx-chevron-down'></i></a>
+                <p>{{ user.email }}</p>
+            </div>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Log Out</button>
+            </form>
+            </div>
+        </div>
+
+        <div class="main">
+        {% block content %}
+            <div class="content">
+
+                <div class="header">
+                    <h4>Добавление чего-либо</h4>
+                    <p>Здесь можно что-нибудь добавить</p>
+                </div>
+            </div>
+        {% endblock %}
+        </div>
+    </div>
+
+    {% else %}
+    <div class="sidebar">
+
+        <a href="#"><img src="{% static 'assets/logo.png' %}"></a>
+
+    </div>
+
+    <div class="container">
+        <div class="main">
+            {% block login %}
+            <div class="content">
+                <div class="header">
+                    <p>You are not logged in</p>
+                    <a href="{% url 'login' %}">Log In</a>
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+    {% endif %}
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
